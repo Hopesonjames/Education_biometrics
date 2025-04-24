@@ -185,7 +185,7 @@ def send_to_erpnext(employee_field_value, timestamp, device_id=None, log_type=No
     """
     endpoint_app = "hrms" if ERPNEXT_VERSION > 13 else "erpnext"
     if str(employee_field_value).startswith("STU"):
-        url = f"{config.ERPNEXT_URL}/api/method/education.education.doctype.student.student.add_log_based_on_student_field"
+        url = f"{config.ERPNEXT_URL}/api/method/ant_laurus.ant_laurus.doctype.student_checkin.student_checkin.add_log_based_on_student_field"
     else:    
         url = f"{config.ERPNEXT_URL}/api/method/{endpoint_app}.hr.doctype.employee_checkin.employee_checkin.add_log_based_on_employee_field"
     headers = {
