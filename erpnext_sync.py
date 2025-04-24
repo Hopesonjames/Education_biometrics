@@ -178,12 +178,16 @@ def get_all_attendance_from_device(ip, port=4370, timeout=30, device_id=None, cl
     return list(map(lambda x: x.__dict__, attendances))
 
 
+
 def send_to_erpnext(employee_field_value, timestamp, device_id=None, log_type=None):
     """
     Example: send_to_erpnext('12349',datetime.datetime.now(),'HO1','IN')
     """
     endpoint_app = "hrms" if ERPNEXT_VERSION > 13 else "erpnext"
-    url = f"{config.ERPNEXT_URL}/api/method/{endpoint_app}.hr.doctype.employee_checkin.employee_checkin.add_log_based_on_employee_field"
+    if str(employee_field_value).startswith("STU"):
+        url = f"{config.ERPNEXT_URL}/api/method/education.education.doctype.student.student.add_log_based_on_student_field"
+    else:    
+        url = f"{config.ERPNEXT_URL}/api/method/{endpoint_app}.hr.doctype.employee_checkin.employee_checkin.add_log_based_on_employee_field"
     headers = {
         'Authorization': "token "+ config.ERPNEXT_API_KEY + ":" + config.ERPNEXT_API_SECRET,
         'Accept': 'application/json'
